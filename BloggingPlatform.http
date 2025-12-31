@@ -1,6 +1,28 @@
 @BloggingPlatform_HostAddress = http://localhost:5116
 
-GET {{BloggingPlatform_HostAddress}}/weatherforecast/
+GET {{BloggingPlatform_HostAddress}}/api/categories/
+Accept: application/json
+
+### 
+GET {{BloggingPlatform_HostAddress}}/api/categories/2
 Accept: application/json
 
 ###
+POST {{BloggingPlatform_HostAddress}}/api/categories/
+Content-Type: application/json
+
+{
+    "title": "Tech"
+}
+
+###
+PUT {{BloggingPlatform_HostAddress}}/api/categories/2
+Content-Type: application/json
+
+{
+    "id": 2,
+    "title": "Programming"
+}
+
+###
+DELETE {{BloggingPlatform_HostAddress}}/api/categories/4
