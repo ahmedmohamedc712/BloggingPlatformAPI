@@ -133,6 +133,6 @@ curl -X GET "https://localhost:5001/api/blogs"
 3. Make your changes
 4. Submit a pull request
 
-## License
+## Problem Statement
 
-This project is licensed under the MIT License.
+This project addresses a blog management problem inspired by the challenges outlined in the https://roadmap.sh/projects/blogging-platform-api
