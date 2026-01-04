@@ -28,13 +28,11 @@ namespace BloggingPlatform.Migrations
                 name: "Tags",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Title = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
+                    TagId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Tags", x => x.Id);
+                    table.PrimaryKey("PK_Tags", x => x.TagId);
                 });
 
             migrationBuilder.CreateTable(
@@ -64,7 +62,7 @@ namespace BloggingPlatform.Migrations
                 name: "BlogTags",
                 columns: table => new
                 {
-                    TagId = table.Column<int>(type: "int", nullable: false),
+                    TagId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     BlogId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -80,7 +78,7 @@ namespace BloggingPlatform.Migrations
                         name: "FK_BlogTags_Tags_TagId",
                         column: x => x.TagId,
                         principalTable: "Tags",
-                        principalColumn: "Id",
+                        principalColumn: "TagId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -88,9 +86,6 @@ namespace BloggingPlatform.Migrations
                 table: "Categories",
                 columns: new[] { "Id", "Title" },
                 values: new object[] { 1, "Uncategorized" });
-
-            migrationBuilder.Sql(
-                "DBCC CHECKIDENT ('Categories', RESEED, 1)");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Blogs_CategoryId",

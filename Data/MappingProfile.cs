@@ -1,5 +1,6 @@
 using System;
 using AutoMapper;
+using BloggingPlatform.DTOs.BlogDTOs;
 using BloggingPlatform.DTOs.CategoryDTOs;
 using BloggingPlatform.Models;
 
@@ -12,6 +13,9 @@ public class MappingProfile : Profile
         CreateMap<Category, ReadCategoryDto>();
         CreateMap<CreateCategoryDto, Category>();
         CreateMap<UpdateCategoryDto, Category>();
-
+    
+        CreateMap<Blog, ReadBlogDto>();
+        CreateMap<CreateBlogDto, Blog>();
+        CreateMap<UpdateBlogDto, Blog>();
     }
 }

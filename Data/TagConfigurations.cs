@@ -9,9 +9,7 @@ public class TagConfigurations : IEntityTypeConfiguration<Tag>
 {
     public void Configure(EntityTypeBuilder<Tag> builder)
     {
-        builder.Property(x => x.Title)
-            .HasMaxLength(50)
-            .IsRequired();
+        builder.HasKey(x => x.TagId);
 
         builder.HasMany(x => x.Tags)
             .WithOne(x => x.Tag)

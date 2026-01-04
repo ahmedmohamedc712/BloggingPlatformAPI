@@ -6,6 +6,5 @@ namespace BloggingPlatform.DTOs.CategoryDTOs;
 
 public class CreateCategoryDto
 {
-    [Required]
-    public string  Title { get; set; } = null!;
+    public required string Title { get; set; }
 }

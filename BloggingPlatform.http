@@ -4,7 +4,7 @@ GET {{BloggingPlatform_HostAddress}}/api/categories/
 Accept: application/json
 
 ### 
-GET {{BloggingPlatform_HostAddress}}/api/categories/2
+GET {{BloggingPlatform_HostAddress}}/api/categories/3
 Accept: application/json
 
 ###
@@ -12,7 +12,7 @@ POST {{BloggingPlatform_HostAddress}}/api/categories/
 Content-Type: application/json
 
 {
-    "title": "Tech"
+    "title": "Engineering"
 }
 
 ###
@@ -25,4 +25,37 @@ Content-Type: application/json
 }
 
 ###
-DELETE {{BloggingPlatform_HostAddress}}/api/categories/4
+DELETE {{BloggingPlatform_HostAddress}}/api/categories/500
+
+### Get Blogs
+GET {{BloggingPlatform_HostAddress}}/api/blogs?categoryId=3
+Accept: application/json
+
+### Get Blog by id
+GET {{BloggingPlatform_HostAddress}}/api/blogs/15
+Accept: application/json
+
+###
+POST {{BloggingPlatform_HostAddress}}/api/blogs?categoryId=3
+Content-Type: application/json
+
+{
+  "title": "Microsoft Sql Server",
+  "content": "Learn MSSQL Server",
+  "tagList": ["Tech" , "Programming"]
+}
+
+###
+PUT {{BloggingPlatform_HostAddress}}/api/blogs/15
+Content-Type: application/json
+
+{
+  "id": 15,
+  "title": "Database Learning",
+  "content": "Learn MSSQL Server",
+  "categoryId": 3,
+  "tagList": ["Tech", "Sql"]
+}
+
+###
+DELETE {{BloggingPlatform_HostAddress}}/api/blogs/10

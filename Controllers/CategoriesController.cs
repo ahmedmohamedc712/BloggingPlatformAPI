@@ -1,6 +1,7 @@
 using BloggingPlatform.DTOs.CategoryDTOs;
 using BloggingPlatform.Interfaces;
 using BloggingPlatform.Models;
+using BloggingPlatform.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,7 +19,7 @@ namespace BloggingPlatform.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<ReadCategoryDto>> GetById(int id)
+        public async Task<ActionResult<CategoryService.FullCategory>> GetById(int id)
         {
             var category = await service.GetCategoryById(id);
             return Ok(category);

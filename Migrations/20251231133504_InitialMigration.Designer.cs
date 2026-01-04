@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BloggingPlatform.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20251230095757_InitialMigration")]
+    [Migration("20251231133504_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
@@ -64,8 +64,8 @@ namespace BloggingPlatform.Migrations
                     b.Property<int>("BlogId")
                         .HasColumnType("int");
 
-                    b.Property<int>("TagId")
-                        .HasColumnType("int");
+                    b.Property<string>("TagId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("BlogId", "TagId");
 
@@ -101,18 +101,10 @@ namespace BloggingPlatform.Migrations
 
             modelBuilder.Entity("BloggingPlatform.Models.Tag", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                    b.Property<string>("TagId")
+                        .HasColumnType("nvarchar(450)");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.HasKey("Id");
+                    b.HasKey("TagId");
 
                     b.ToTable("Tags");
                 });

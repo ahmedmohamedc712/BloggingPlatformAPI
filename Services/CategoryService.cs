@@ -1,6 +1,8 @@
 using System;
 using AutoMapper;
+using Azure;
 using BloggingPlatform.Data;
+using BloggingPlatform.DTOs.BlogDTOs;
 using BloggingPlatform.DTOs.CategoryDTOs;
 using BloggingPlatform.Exceptions;
 using BloggingPlatform.Interfaces;
@@ -12,18 +14,25 @@ namespace BloggingPlatform.Services;
 
 public class CategoryService(AppDbContext context, IMapper mapper) : ICategoryService
 {
+    public record BlogBrief(int Id, string Title, IEnumerable<string> Tags);
+    public record FullCategory(int Id, string Title, IEnumerable<BlogBrief> Blogs);
     private const int DefaultCategoryId = 1;
     public async Task<IEnumerable<ReadCategoryDto>> GetCategories()
     {
-        var blogs = await context.Categories.ToListAsync();
+        var blogs = await context.Categories
+        .AsNoTracking()
+        .ToListAsync();
+        
         var result = mapper.Map<IEnumerable<ReadCategoryDto>>(blogs);
         return result;
     }
 
-    public async Task<ReadCategoryDto> GetCategoryById(int id)
+    public async Task<FullCategory> GetCategoryById(int id)
     {
-        var category = await context.Categories
-            .Include(x => x.Blogs)
+        Category? category = await context.Categories
+            .AsNoTracking()
+            .Include(x => x.Blogs)!
+            .ThenInclude(x => x.Tags)
             .FirstOrDefaultAsync(x => x.Id == id);
 
         if (category is null)
@@ -31,7 +40,10 @@ public class CategoryService(AppDbContext context, IMapper mapper) : ICategorySe
             throw new NotFoundException("Category not found.");
         }
 
-        var result = mapper.Map<ReadCategoryDto>(category);
+        IEnumerable<BlogBrief> blogs = category.Blogs!
+        .Select(x => new BlogBrief(x.Id, x.Title, x.Tags.Select(x => x.TagId)));
+
+        FullCategory result = new (category.Id, category.Title, blogs);
         return result;
     }
 
